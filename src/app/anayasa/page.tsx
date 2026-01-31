@@ -5,6 +5,7 @@ import { Header } from "@/components/layout/Header";
 import { CrabLogo } from "@/components/icons/CrabIcons";
 import { WalkingCrabs } from "@/components/effects/WalkingCrabs";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function AnayasaPage() {
     return (
@@ -77,8 +78,15 @@ function HeroSection() {
                 <motion.div
                     animate={{ rotate: [0, 5, -5, 0] }}
                     transition={{ duration: 4, repeat: Infinity }}
+                    className="w-40 h-40 relative"
                 >
-                    <CrabLogo className="w-32 h-32 text-[--accent-orange] text-glow" />
+                    <Image
+                        src="/babacrab.gif"
+                        alt="Baba Crab"
+                        fill
+                        className="object-contain drop-shadow-[0_0_20px_rgba(255,100,0,0.6)]"
+                        unoptimized
+                    />
                 </motion.div>
             </div>
 

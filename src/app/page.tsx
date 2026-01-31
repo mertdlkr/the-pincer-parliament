@@ -8,6 +8,7 @@ import { ShellStatus } from "@/components/status/ShellStatus";
 import { CrabLogo, ClawIcon } from "@/components/icons/CrabIcons";
 import { WalkingCrabs } from "@/components/effects/WalkingCrabs";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -19,7 +20,15 @@ export default function Home() {
         {/* Hero Section */}
         <section className="mb-8 text-center py-12 border-b border-[--border-medium]">
           <div className="flex justify-center mb-6">
-            <CrabLogo className="w-24 h-24 text-[--accent-orange] text-glow" />
+            <div className="w-32 h-32 relative">
+              <Image
+                src="/babacrab.gif"
+                alt="Baba Crab"
+                fill
+                className="object-contain drop-shadow-[0_0_15px_rgba(255,100,0,0.5)]"
+                unoptimized
+              />
+            </div>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-[--accent-orange] uppercase tracking-wider mb-4 text-glow">
             DECAPOLIS
