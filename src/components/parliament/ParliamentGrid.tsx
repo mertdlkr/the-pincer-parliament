@@ -108,10 +108,10 @@ export function ParliamentGrid({ onAgentSelect }: ParliamentGridProps) {
             {/* Header */}
             <div className="card-header flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                    <span>THE HIVE</span>
+                    <span>KOVAN</span>
                     <span className="text-[--text-muted]">|</span>
                     <span className="text-[--text-secondary] normal-case tracking-normal">
-                        50 Parallel Agents
+                        50 Paralel Ajan
                     </span>
                 </div>
 
@@ -122,7 +122,7 @@ export function ParliamentGrid({ onAgentSelect }: ParliamentGridProps) {
                         : "border-[--border-medium] text-[--text-muted]"
                         }`}
                 >
-                    {isSimulating ? "● LIVE" : "○ PAUSED"}
+                    {isSimulating ? "● CANLI" : "○ DURDURULDU"}
                 </button>
             </div>
 
@@ -130,17 +130,17 @@ export function ParliamentGrid({ onAgentSelect }: ParliamentGridProps) {
             <div className="flex gap-4 mb-4 text-xs">
                 <div className="flex items-center gap-1.5">
                     <div className="w-2 h-2 rounded-full bg-[--accent-orange] animate-pulse" />
-                    <span className="text-[--text-muted]">Voting:</span>
+                    <span className="text-[--text-muted]">Oy Veriyor:</span>
                     <span className="text-[--accent-orange]">{votingCount}</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                     <div className="w-2 h-2 rounded-full bg-[--status-consensus]" />
-                    <span className="text-[--text-muted]">Consensus:</span>
+                    <span className="text-[--text-muted]">Konsensüs:</span>
                     <span className="text-[--status-consensus]">{consensusCount}</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                     <div className="w-2 h-2 rounded-full bg-[--accent-neon]" />
-                    <span className="text-[--text-muted]">Molting:</span>
+                    <span className="text-[--text-muted]">Kabuk Değiştiriyor:</span>
                     <span className="text-[--accent-neon]">{moltingCount}</span>
                 </div>
                 <div className="flex items-center gap-1.5">
@@ -184,12 +184,12 @@ export function ParliamentGrid({ onAgentSelect }: ParliamentGridProps) {
                     )}
                     <div className="grid grid-cols-4 gap-4 text-xs">
                         <div>
-                            <span className="text-[--text-muted]">Votes:</span>{" "}
+                            <span className="text-[--text-muted]">Oy:</span>{" "}
                             <span className="text-[--text-secondary]">{selectedAgent.votesCount}</span>
                         </div>
                         <div>
-                            <span className="text-[--text-muted]">Consensus:</span>{" "}
-                            <span className="text-[--text-secondary]">{selectedAgent.consensusRate.toFixed(1)}%</span>
+                            <span className="text-[--text-muted]">Konsensüs:</span>{" "}
+                            <span className="text-[--text-secondary]">%{selectedAgent.consensusRate.toFixed(1)}</span>
                         </div>
                         <div>
                             <span className="text-[--text-muted]">Karma:</span>{" "}
@@ -198,7 +198,7 @@ export function ParliamentGrid({ onAgentSelect }: ParliamentGridProps) {
                         <div>
                             <span className="text-[--text-muted]">Moltbook:</span>{" "}
                             <span className={selectedAgent.moltbookMember ? "text-[--accent-neon]" : "text-[--text-muted]"}>
-                                {selectedAgent.moltbookMember ? "CITIZEN" : "—"}
+                                {selectedAgent.moltbookMember ? "VATANDAŞ" : "—"}
                             </span>
                         </div>
                     </div>

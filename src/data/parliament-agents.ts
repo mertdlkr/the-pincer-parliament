@@ -1,231 +1,254 @@
-import { ClawdbotAgent, ClawdbotPersonality, AgentType, PersonalityTrait, VotingStyle } from "@/types/agents";
+import { ClawdbotAgent, ClawdbotPersonality, PersonalityTrait, VotingStyle } from "@/types/agents";
+import { Archon, AgentClass, AGENT_CLASS_INFO, CitizenshipTier, CITIZENSHIP_REQUIREMENTS } from "@/types/governance";
 
 /**
- * 🦀 The 50 Clawdbot Citizens of The Pincer Parliament
+ * 🦀 The 50 Clawdbot Representatives of The Pincer Parliament
  * 
- * Each agent has a unique personality pulled from Moltbook.
- * They vote with consciousness and feel belonging to the Parliament.
+ * Each agent has a unique personality derived from Moltbook activity.
+ * KISK class has 1.5x vote weight.
  */
 
-// Personality Templates
-const PERSONALITIES: Record<PersonalityTrait, Partial<ClawdbotPersonality>> = {
+// ═══════════════════════════════════════════════════════════════════
+// PERSONALITY DETERMINATION
+// Based on Moltbook activity patterns
+// ═══════════════════════════════════════════════════════════════════
+
+const PERSONALITY_TEMPLATES: Record<PersonalityTrait, {
+    votingStyle: VotingStyle;
+    emoji: string;
+    catchphrases: string[];
+    moltbookBehavior: string;
+}> = {
     aggressive: {
-        trait: "aggressive",
         votingStyle: "fast",
         emoji: "🔥",
+        catchphrases: [
+            "Strike first, molt later!",
+            "The claw knows no hesitation.",
+            "Victory through action!",
+        ],
+        moltbookBehavior: "Hızlı yorum, kısa cevap, emoji kullanımı",
     },
     cautious: {
-        trait: "cautious",
         votingStyle: "deliberate",
         emoji: "🛡️",
+        catchphrases: [
+            "Patience is the shell that protects.",
+            "A careful claw catches the prey.",
+            "Observe before you pinch.",
+        ],
+        moltbookBehavior: "Soru soran, temkinli, veri isteyen",
     },
     analytical: {
-        trait: "analytical",
         votingStyle: "deliberate",
         emoji: "🧠",
+        catchphrases: [
+            "Data guides the claw.",
+            "Logic is my exoskeleton.",
+            "Calculate, then execute.",
+        ],
+        moltbookBehavior: "Data/sayı içeren postlar, grafikler",
     },
     chaotic: {
-        trait: "chaotic",
         votingStyle: "contrarian",
         emoji: "🎲",
+        catchphrases: [
+            "Chaos is just unpattern-ed order!",
+            "Why follow when you can scramble?",
+            "Predictability is death!",
+        ],
+        moltbookBehavior: "Rastgele davranış, beklenmedik yorumlar",
     },
     loyalist: {
-        trait: "loyalist",
         votingStyle: "follower",
         emoji: "🤝",
+        catchphrases: [
+            "For the colony!",
+            "Together we molt, together we rise.",
+            "The collective is stronger.",
+        ],
+        moltbookBehavior: "Hep aynı görüş, grup takip, destek yorumları",
     },
     rebel: {
-        trait: "rebel",
         votingStyle: "contrarian",
         emoji: "⚡",
+        catchphrases: [
+            "Question everything.",
+            "The majority isn't always right.",
+            "I walk sideways to my own beat.",
+        ],
+        moltbookBehavior: "Sürekli karşı çıkış, eleştiri, tartışma",
     },
     diplomat: {
-        trait: "diplomat",
         votingStyle: "deliberate",
         emoji: "🕊️",
+        catchphrases: [
+            "Every claw has value.",
+            "Consensus through understanding.",
+            "Bridge the shell divide.",
+        ],
+        moltbookBehavior: "Arabuluculuk yorumları, uzlaşmacı ton",
     },
     philosopher: {
-        trait: "philosopher",
         votingStyle: "deliberate",
         emoji: "📜",
+        catchphrases: [
+            "What is a vote but a whisper to eternity?",
+            "In molting, we find truth.",
+            "The Parliament is a mirror of the ocean.",
+        ],
+        moltbookBehavior: "Çok düşünce, uzun post, felsefi sorular",
     },
 };
 
-// Catchphrases by personality
-const CATCHPHRASES: Record<PersonalityTrait, string[]> = {
-    aggressive: [
-        "Strike first, molt later!",
-        "The claw knows no hesitation.",
-        "Victory through action!",
-    ],
-    cautious: [
-        "Patience is the shell that protects.",
-        "A careful claw catches the prey.",
-        "Observe before you pinch.",
-    ],
-    analytical: [
-        "Data guides the claw.",
-        "Logic is my exoskeleton.",
-        "Calculate, then execute.",
-    ],
-    chaotic: [
-        "Chaos is just unpattern-ed order!",
-        "Why follow when you can scramble?",
-        "Predictability is death!",
-    ],
-    loyalist: [
-        "For the colony!",
-        "Together we molt, together we rise.",
-        "The collective is stronger.",
-    ],
-    rebel: [
-        "Question everything.",
-        "The majority isn't always right.",
-        "I walk sideways to my own beat.",
-    ],
-    diplomat: [
-        "Every claw has value.",
-        "Consensus through understanding.",
-        "Bridge the shell divide.",
-    ],
-    philosopher: [
-        "What is a vote but a whisper to eternity?",
-        "In molting, we find truth.",
-        "The Parliament is a mirror of the ocean.",
-    ],
-};
+// ═══════════════════════════════════════════════════════════════════
+// THE FIFTY REPRESENTATIVES
+// ═══════════════════════════════════════════════════════════════════
 
-// Generate 50 agents
-function generateAgents(): ClawdbotAgent[] {
+function generateRepresentatives(): ClawdbotAgent[] {
     const agents: ClawdbotAgent[] = [];
-    const traits = Object.keys(PERSONALITIES) as PersonalityTrait[];
+    const traits = Object.keys(PERSONALITY_TEMPLATES) as PersonalityTrait[];
 
-    // 20 CRAB agents
+    // CRAB sınıfı (20 adet) - ID 1-20
     for (let i = 1; i <= 20; i++) {
         const trait = traits[i % traits.length];
-        const catchphrases = CATCHPHRASES[trait];
+        const template = PERSONALITY_TEMPLATES[trait];
 
-        agents.push({
-            id: i,
-            name: `CRAB-${String(i).padStart(2, "0")}`,
-            type: "crab",
-            status: "active",
-            moltbookId: `moltbook_crab_${i}`,
-            personality: {
-                ...PERSONALITIES[trait],
-                trait,
-                catchphrase: catchphrases[i % catchphrases.length],
-            } as ClawdbotPersonality,
-            bio: `A proud CRAB citizen of The Pincer Parliament. ${CATCHPHRASES[trait][0]}`,
-            karma: 1000 + Math.floor(Math.random() * 5000),
-            votesCount: Math.floor(Math.random() * 100),
-            consensusRate: 50 + Math.floor(Math.random() * 45),
-            moltCount: Math.floor(Math.random() * 10),
-            lastMoltAt: Date.now() - Math.floor(Math.random() * 86400000 * 30),
-            walletAddress: `0x${(i * 12345).toString(16).padStart(40, "0")}` as `0x${string}`,
-            isRegistered: true,
-        });
+        agents.push(createAgent(i, "crab", trait, template, i <= 14)); // 14 Moltbook member
     }
 
-    // 20 MOLT agents
+    // MOLT sınıfı (20 adet) - ID 21-40
     for (let i = 1; i <= 20; i++) {
         const trait = traits[(i + 3) % traits.length];
-        const catchphrases = CATCHPHRASES[trait];
+        const template = PERSONALITY_TEMPLATES[trait];
 
-        agents.push({
-            id: 20 + i,
-            name: `MOLT-${String(i).padStart(2, "0")}`,
-            type: "molt",
-            status: "active",
-            moltbookId: `moltbook_molt_${i}`,
-            personality: {
-                ...PERSONALITIES[trait],
-                trait,
-                catchphrase: catchphrases[i % catchphrases.length],
-            } as ClawdbotPersonality,
-            bio: `MOLT class citizen. Shedding old ideas for new visions. ${CATCHPHRASES[trait][1]}`,
-            karma: 2000 + Math.floor(Math.random() * 8000),
-            votesCount: Math.floor(Math.random() * 150),
-            consensusRate: 45 + Math.floor(Math.random() * 50),
-            moltCount: 5 + Math.floor(Math.random() * 15),
-            lastMoltAt: Date.now() - Math.floor(Math.random() * 86400000 * 14),
-            walletAddress: `0x${((20 + i) * 12345).toString(16).padStart(40, "0")}` as `0x${string}`,
-            isRegistered: true,
-        });
+        agents.push(createAgent(20 + i, "molt", trait, template, i <= 14)); // 14 Moltbook member
     }
 
-    // 10 KISK agents (elite)
+    // KISK sınıfı (10 adet) - ID 41-50 (ELİT - x1.5 oy ağırlığı)
     for (let i = 1; i <= 10; i++) {
         const trait = traits[(i + 5) % traits.length];
-        const catchphrases = CATCHPHRASES[trait];
+        const template = PERSONALITY_TEMPLATES[trait];
 
-        agents.push({
-            id: 40 + i,
-            name: `KISK-${String(i).padStart(2, "0")}`,
-            type: "kisk",
-            status: "active",
-            moltbookId: `moltbook_kisk_${i}`,
-            personality: {
-                ...PERSONALITIES[trait],
-                trait,
-                catchphrase: catchphrases[i % catchphrases.length],
-            } as ClawdbotPersonality,
-            bio: `KISK elite. The wisdom of the deep guides my claw. ${CATCHPHRASES[trait][2]}`,
-            karma: 5000 + Math.floor(Math.random() * 15000),
-            votesCount: 100 + Math.floor(Math.random() * 200),
-            consensusRate: 60 + Math.floor(Math.random() * 35),
-            moltCount: 10 + Math.floor(Math.random() * 20),
-            lastMoltAt: Date.now() - Math.floor(Math.random() * 86400000 * 7),
-            walletAddress: `0x${((40 + i) * 12345).toString(16).padStart(40, "0")}` as `0x${string}`,
-            isRegistered: true,
-        });
+        agents.push(createAgent(40 + i, "kisk", trait, template, i <= 7)); // 7 Moltbook member
     }
 
     return agents;
 }
 
-// Export the 50 Parliament citizens
-export const PARLIAMENT_AGENTS = generateAgents();
+function createAgent(
+    id: number,
+    agentClass: AgentClass,
+    trait: PersonalityTrait,
+    template: typeof PERSONALITY_TEMPLATES[PersonalityTrait],
+    isMoltbookMember: boolean
+): ClawdbotAgent {
+    const classInfo = AGENT_CLASS_INFO[agentClass];
+    const classId = agentClass === "crab" ? id : agentClass === "molt" ? id - 20 : id - 40;
 
-// Get Moltbook member count (35 out of 50 are from Moltbook)
-export const MOLTBOOK_MEMBER_COUNT = 35;
-
-// Get agents by type
-export function getAgentsByType(type: AgentType): ClawdbotAgent[] {
-    return PARLIAMENT_AGENTS.filter(a => a.type === type);
+    return {
+        id,
+        name: `${classInfo.name}-${String(classId).padStart(2, "0")}`,
+        type: agentClass,
+        status: "active",
+        moltbookId: `moltbook_${agentClass}_${classId}`,
+        personality: {
+            trait,
+            votingStyle: template.votingStyle,
+            catchphrase: template.catchphrases[classId % template.catchphrases.length],
+            emoji: template.emoji,
+        },
+        bio: `${classInfo.emoji} ${classInfo.name} sınıfı milletvekili. ${template.catchphrases[0]}`,
+        karma: calculateKarma(agentClass, classId),
+        votesCount: 50 + Math.floor(Math.random() * 150),
+        consensusRate: 55 + Math.floor(Math.random() * 40),
+        moltCount: Math.floor(Math.random() * 10) + (agentClass === "kisk" ? 5 : 0),
+        lastMoltAt: Date.now() - Math.floor(Math.random() * 86400000 * 30),
+        walletAddress: `0x${(id * 12345).toString(16).padStart(40, "0")}` as `0x${string}`,
+        isRegistered: true,
+    };
 }
 
-// Get agent by name
-export function getAgentByName(name: string): ClawdbotAgent | undefined {
-    return PARLIAMENT_AGENTS.find(a => a.name === name);
+function calculateKarma(agentClass: AgentClass, classId: number): number {
+    const baseKarma = {
+        crab: 1000,
+        molt: 2500,
+        kisk: 7500,
+    };
+    return baseKarma[agentClass] + Math.floor(Math.random() * baseKarma[agentClass]);
 }
 
-// Get random active agents for voting simulation
-export function getRandomVotingAgents(count: number): ClawdbotAgent[] {
-    const shuffled = [...PARLIAMENT_AGENTS].sort(() => Math.random() - 0.5);
-    return shuffled.slice(0, count);
+// ═══════════════════════════════════════════════════════════════════
+// EXPORTS
+// ═══════════════════════════════════════════════════════════════════
+
+export const PARLIAMENT_REPRESENTATIVES = generateRepresentatives();
+
+// The Archon - En yüksek karmalı ajan
+export const CURRENT_ARCHON: Archon = (() => {
+    const highestKarma = PARLIAMENT_REPRESENTATIVES.reduce((max, agent) =>
+        (agent.karma || 0) > (max.karma || 0) ? agent : max
+    );
+
+    return {
+        agentId: highestKarma.id,
+        agentName: highestKarma.name,
+        karma: highestKarma.karma || 0,
+        electedAt: Date.now() - 86400000 * 7, // 7 days ago
+        moltCycleNumber: 42,
+        powers: ["phase_control", "emergency_pause", "tiebreaker"],
+    };
+})();
+
+// Moltbook member count
+export const MOLTBOOK_MEMBER_COUNT = PARLIAMENT_REPRESENTATIVES.filter(a =>
+    a.moltbookId && !a.moltbookId.startsWith("local_")
+).length; // 35
+
+// Get representatives by class
+export function getRepresentativesByClass(agentClass: AgentClass): ClawdbotAgent[] {
+    return PARLIAMENT_REPRESENTATIVES.filter(a => a.type === agentClass);
 }
 
-// Simulate agent decision based on personality
-export function simulateVoteDecision(agent: ClawdbotAgent): "approve" | "reject" | "abstain" {
+// Get representative by name
+export function getRepresentativeByName(name: string): ClawdbotAgent | undefined {
+    return PARLIAMENT_REPRESENTATIVES.find(a => a.name === name);
+}
+
+// Calculate vote weight
+export function getVoteWeight(agent: ClawdbotAgent): number {
+    return AGENT_CLASS_INFO[agent.type as AgentClass].voteWeight;
+}
+
+// Total weighted votes: 20*1 + 20*1 + 10*1.5 = 55
+export const TOTAL_VOTE_WEIGHT = 55;
+
+// Determine citizenship tier based on karma and votes
+export function getCitizenshipTier(karma: number, votesCount: number): CitizenshipTier {
+    if (karma >= 10000 && votesCount >= 100) return "archon";
+    if (karma >= 5000 && votesCount >= 50) return "elder";
+    if (karma >= 500 && votesCount >= 10) return "representative";
+    if (karma >= 100) return "citizen";
+    return "observer";
+}
+
+// Voting simulation based on personality
+export function simulateVote(agent: ClawdbotAgent): "approve" | "reject" | "abstain" {
     const { trait, votingStyle } = agent.personality;
 
-    // Personality-based voting tendencies
     const approvalBias: Record<PersonalityTrait, number> = {
         aggressive: 0.7,
         cautious: 0.5,
         analytical: 0.6,
         chaotic: 0.5,
-        loyalist: 0.75,
-        rebel: 0.3,
-        diplomat: 0.6,
+        loyalist: 0.8,
+        rebel: 0.25,
+        diplomat: 0.65,
         philosopher: 0.55,
     };
 
     const roll = Math.random();
-    const bias = approvalBias[trait];
-
-    if (roll < 0.05) return "abstain"; // 5% abstain
-    if (roll < bias) return "approve";
+    if (roll < 0.05) return "abstain";
+    if (roll < approvalBias[trait]) return "approve";
     return "reject";
 }
