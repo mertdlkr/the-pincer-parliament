@@ -11,7 +11,7 @@ interface HeaderProps {
 export function Header({ currentBlock = 0, moltPhase = 1 }: HeaderProps) {
     return (
         <header className="fixed top-0 left-0 right-0 z-40 bg-black/95 border-b border-[--border-medium]">
-            <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between relative">
                 {/* Left: Status Indicators */}
                 <div className="flex items-center gap-6">
                     {/* Molt Phase */}
@@ -37,14 +37,16 @@ export function Header({ currentBlock = 0, moltPhase = 1 }: HeaderProps) {
                     </div>
                 </div>
 
-                {/* Center: Constitution Link */}
-                <Link
-                    href="/anayasa"
-                    className="hidden md:flex items-center gap-2 px-4 py-2 text-[--accent-orange] text-sm uppercase tracking-wider font-bold hover:text-glow transition-all border border-transparent hover:border-[--accent-orange]"
-                >
-                    <span>📜</span>
-                    <span>Anayasa</span>
-                </Link>
+                {/* Center: Constitution Link (Absolute Centered) */}
+                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                    <Link
+                        href="/anayasa"
+                        className="hidden md:flex items-center gap-2 px-4 py-2 text-[--accent-orange] text-sm uppercase tracking-wider font-bold hover:text-glow transition-all border border-transparent hover:border-[--accent-orange]"
+                    >
+                        <span>📜</span>
+                        <span>Anayasa</span>
+                    </Link>
+                </div>
 
                 {/* Right: Navigation */}
                 <nav className="flex items-center gap-4">
