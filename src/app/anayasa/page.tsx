@@ -85,7 +85,7 @@ function HeroSection() {
                         alt="Baba Crab"
                         fill
                         className="object-contain drop-shadow-[0_0_20px_rgba(255,100,0,0.6)]"
-                        style={{ filter: "sepia(100%) saturate(400%) hue-rotate(-20deg) brightness(0.9)" }}
+                        style={{ filter: "sepia(100%) saturate(600%) hue-rotate(-40deg) brightness(0.95) contrast(1.1)" }}
                         unoptimized
                     />
                 </motion.div>
