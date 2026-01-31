@@ -11,13 +11,13 @@ import { useState, useCallback, useEffect } from "react";
 // ═══════════════════════════════════════════════════════════════════
 
 export function useMonadParallel() {
-    const [blockNumber, setBlockNumber] = useState<bigint>(0n);
+    const [blockNumber, setBlockNumber] = useState<bigint>(BigInt(0));
     const [isConnected, setIsConnected] = useState(false);
 
     useEffect(() => {
         // Simulate block updates for demo (replace with real subscription)
         const interval = setInterval(() => {
-            setBlockNumber(prev => prev + 1n);
+            setBlockNumber(prev => prev + BigInt(1));
         }, 500); // Monad's fast block time
 
         setIsConnected(true);
