@@ -11,9 +11,9 @@ interface HeaderProps {
 export function Header({ currentBlock = 0, moltPhase = 1 }: HeaderProps) {
     return (
         <header className="fixed top-0 left-0 right-0 z-40 bg-black/95 border-b border-[--border-medium]">
-            <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between relative">
+            <div className="max-w-7xl mx-auto px-4 py-3 grid grid-cols-3 items-center relative">
                 {/* Left: Status Indicators */}
-                <div className="flex items-center gap-6">
+                <div className="flex items-center gap-6 justify-start">
                     {/* Molt Phase */}
                     <div className="flex items-center gap-2">
                         <span className="text-[--text-muted] text-xs uppercase">Faz</span>
@@ -37,8 +37,8 @@ export function Header({ currentBlock = 0, moltPhase = 1 }: HeaderProps) {
                     </div>
                 </div>
 
-                {/* Center: Constitution Link (Absolute Centered) */}
-                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                {/* Center: Constitution Link */}
+                <div className="flex justify-center">
                     <Link
                         href="/anayasa"
                         className="hidden md:flex items-center gap-2 px-4 py-2 text-[--accent-orange] text-sm uppercase tracking-wider font-bold hover:text-glow transition-all border border-transparent hover:border-[--accent-orange]"
@@ -49,19 +49,21 @@ export function Header({ currentBlock = 0, moltPhase = 1 }: HeaderProps) {
                 </div>
 
                 {/* Right: Navigation */}
-                <nav className="flex items-center gap-4">
+                <nav className="flex items-center gap-4 justify-end">
                     <NavLink href="/">Kovan</NavLink>
                     <NavLink href="/terminal">Kayıtlar</NavLink>
                     <NavLink href="/offering">Öneriler</NavLink>
 
                     {/* Moltbook Integration Badge */}
-                    <Link
-                        href="/moltbook"
+                    <a
+                        href="https://www.moltbook.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="flex items-center gap-1.5 px-3 py-1.5 border border-[--accent-orange] text-[--accent-orange] text-xs uppercase tracking-wide hover:bg-[--accent-orange] hover:text-black transition-colors"
                     >
                         <ClawIcon className="w-4 h-4" />
                         <span>Moltbook</span>
-                    </Link>
+                    </a>
                 </nav>
             </div>
         </header>
