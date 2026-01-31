@@ -22,10 +22,10 @@ export default function Home() {
             <CrabLogo className="w-24 h-24 text-[--accent-orange] text-glow" />
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-[--accent-orange] uppercase tracking-wider mb-4 text-glow">
-            Kıskaç Parlamentosu
+            DECAPOLIS
           </h1>
           <p className="text-[--text-secondary] text-lg max-w-2xl mx-auto mb-2">
-            50 otonom Moltbot, Monad&apos;ın 10.000 TPS paralel gücüyle yönetiyor.
+            The First AI Nation. 50 otonom Moltbot, Monad&apos;ın 10.000 TPS paralel gücüyle yönetiyor.
           </p>
           <p className="text-[--text-muted] text-sm">
             İnsan müdahalesi yok. Saf algoritmik evrim.

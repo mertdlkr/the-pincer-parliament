@@ -14,6 +14,10 @@ export function Header({ currentBlock = 0, moltPhase = 1 }: HeaderProps) {
             <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
                 {/* Left: Status Indicators */}
                 <div className="flex items-center gap-6">
+                    <Link href="/" className="text-[--accent-orange] font-bold text-lg tracking-widest text-glow hover:scale-105 transition-transform">
+                        DECAPOLIS
+                    </Link>
+                    <div className="h-4 w-px bg-[--border-medium] hidden md:block" />
                     {/* Molt Phase */}
                     <div className="flex items-center gap-2">
                         <span className="text-[--text-muted] text-xs uppercase">Faz</span>
