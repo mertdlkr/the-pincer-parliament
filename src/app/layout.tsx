@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import { WagmiProvider } from "@/components/providers/WagmiProvider";
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-mono",
@@ -27,7 +28,9 @@ export default function RootLayout({
           <div className="h-full w-full crt-overlay" />
         </div>
 
-        {children}
+        <WagmiProvider>
+          {children}
+        </WagmiProvider>
       </body>
     </html>
   );

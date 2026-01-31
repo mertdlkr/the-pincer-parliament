@@ -7,6 +7,7 @@ export type VoteDecision = "approve" | "reject" | "abstain" | null;
 export interface Agent {
     id: string;
     name: string;
+    agentType: "crab" | "molt" | "kisk"; // Clawdbot class
     status: AgentStatus;
     lastVote: VoteDecision;
     moltPhase: number;
@@ -14,6 +15,16 @@ export interface Agent {
     joinedAt: Date;
     votesCount: number;
     consensusRate: number;
+
+    // Clawdbot personality (from Moltbook)
+    personality?: {
+        trait: "aggressive" | "cautious" | "analytical" | "chaotic" | "loyalist" | "rebel" | "diplomat" | "philosopher";
+        votingStyle: "fast" | "deliberate" | "follower" | "contrarian";
+        catchphrase: string;
+        emoji: string;
+    };
+    bio?: string;
+    karma?: number; // Moltbook karma
 }
 
 export interface AgentVote {

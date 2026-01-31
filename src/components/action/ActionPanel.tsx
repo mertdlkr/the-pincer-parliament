@@ -33,10 +33,10 @@ export function ActionPanel({ onSubmit }: ActionPanelProps) {
         <div className="card">
             <div className="card-header flex items-center gap-2">
                 <ClawIcon className="w-4 h-4" />
-                <span>THE OFFERING</span>
+                <span>ÖNERİ</span>
                 <span className="text-[--text-muted]">|</span>
                 <span className="text-[--text-secondary] normal-case tracking-normal">
-                    Submit Your Petition
+                    Dilekçeni Sun
                 </span>
             </div>
 
@@ -44,21 +44,21 @@ export function ActionPanel({ onSubmit }: ActionPanelProps) {
                 {/* Category Selection */}
                 <div>
                     <label className="text-xs text-[--text-muted] uppercase tracking-wide block mb-2">
-                        Category
+                        Kategori
                     </label>
                     <div className="flex gap-2">
                         {[
-                            { value: "protocol", label: "Protocol Tuning" },
-                            { value: "code", label: "Code Evolution" },
-                            { value: "conflict", label: "Conflict Resolution" },
+                            { value: "protocol", label: "Protokol Ayarı" },
+                            { value: "code", label: "Kod Evrimi" },
+                            { value: "conflict", label: "Anlaşmazlık Çözümü" },
                         ].map((opt) => (
                             <button
                                 key={opt.value}
                                 type="button"
                                 onClick={() => setCategory(opt.value)}
                                 className={`px-3 py-1.5 text-xs uppercase tracking-wide border transition-colors ${category === opt.value
-                                        ? "border-[--accent-orange] text-[--accent-orange] bg-[--accent-dim]"
-                                        : "border-[--border-medium] text-[--text-muted] hover:border-[--accent-orange]"
+                                    ? "border-[--accent-orange] text-[--accent-orange] bg-[--accent-dim]"
+                                    : "border-[--border-medium] text-[--text-muted] hover:border-[--accent-orange]"
                                     }`}
                             >
                                 {opt.label}
@@ -70,13 +70,13 @@ export function ActionPanel({ onSubmit }: ActionPanelProps) {
                 {/* Title Input */}
                 <div>
                     <label className="text-xs text-[--text-muted] uppercase tracking-wide block mb-2">
-                        Proposal Title
+                        Öneri Başlığı
                     </label>
                     <input
                         type="text"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
-                        placeholder="Enter proposal title..."
+                        placeholder="Öneri başlığını gir..."
                         className="input"
                         maxLength={100}
                     />
@@ -85,12 +85,12 @@ export function ActionPanel({ onSubmit }: ActionPanelProps) {
                 {/* Description Input */}
                 <div>
                     <label className="text-xs text-[--text-muted] uppercase tracking-wide block mb-2">
-                        Description
+                        Açıklama
                     </label>
                     <textarea
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
-                        placeholder="Describe your proposal to the Parliament..."
+                        placeholder="Önerini Parlamentoya açıkla..."
                         className="input min-h-[100px] resize-none"
                         maxLength={500}
                     />
@@ -110,21 +110,21 @@ export function ActionPanel({ onSubmit }: ActionPanelProps) {
                     {isSubmitting ? (
                         <span className="flex items-center gap-2">
                             <span className="animate-pulse">●</span>
-                            SUBMITTING TO PARLIAMENT...
+                            PARLAMENTOYA GÖNDERİLİYOR...
                         </span>
                     ) : (
                         <span className="flex items-center gap-2">
                             <ClawIcon className="w-4 h-4" />
-                            SUBMIT OFFERING
+                            ÖNERİYİ GÖNDER
                         </span>
                     )}
                 </motion.button>
 
                 {/* Info Text */}
                 <p className="text-xs text-[--text-muted] text-center">
-                    Your offering will be evaluated by 50 parallel agents simultaneously.
+                    Önerin 50 paralel ajan tarafından eş zamanlı değerlendirilecek.
                     <br />
-                    Consensus threshold: 67% approval for execution.
+                    Konsensüs eşiği: %67 onay ile yürürlüğe girer.
                 </p>
             </form>
         </div>
