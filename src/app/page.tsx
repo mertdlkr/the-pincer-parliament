@@ -26,7 +26,7 @@ export default function Home() {
                 alt="Baba Crab"
                 fill
                 className="object-contain drop-shadow-[0_0_15px_rgba(255,100,0,0.5)]"
-                style={{ filter: "sepia(100%) saturate(600%) hue-rotate(-40deg) brightness(0.95) contrast(1.1)" }}
+                style={{ filter: "sepia(100%) saturate(700%) hue-rotate(-60deg) brightness(0.9) contrast(1.2)" }}
                 unoptimized
               />
             </div>
